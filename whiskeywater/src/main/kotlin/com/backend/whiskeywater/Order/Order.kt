@@ -11,9 +11,9 @@ data class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
-    @OneToMany(mappedBy="order")
+    @OneToOne
     val customer: Customer,
-    @OneToMany
+    @OneToOne
     val shippingAddress: ShippingAddress,
     val date_ordered: Date,
     val complete: Boolean,
