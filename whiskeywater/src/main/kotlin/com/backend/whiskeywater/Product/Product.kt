@@ -1,4 +1,4 @@
-package com.backend.whiskeywater.data
+package com.backend.whiskeywater.Product
 
 import javax.persistence.Entity
 import javax.persistence.Id
