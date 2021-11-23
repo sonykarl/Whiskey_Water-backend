@@ -9,6 +9,7 @@ import javax.persistence.*
 data class Customer(
     val first_name: String,
     val last_name : String,
+    val password: String,
     @Id
     val email: String,
     val phone_number: Int,

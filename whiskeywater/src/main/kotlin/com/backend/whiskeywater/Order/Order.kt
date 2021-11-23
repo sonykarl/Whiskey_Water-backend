@@ -12,7 +12,7 @@ data class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     val id: Long,
-    @OneToOne
+    @ManyToOne
     val customer: Customer,
     @OneToOne
     val shippingAddress: ShippingAddress,
