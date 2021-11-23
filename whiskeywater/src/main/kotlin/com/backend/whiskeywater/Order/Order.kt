@@ -2,11 +2,12 @@ package com.backend.whiskeywater.Order
 
 import com.backend.whiskeywater.Customer.Customer
 import com.backend.whiskeywater.Address.ShippingAddress
+import java.io.Serializable
 import java.sql.Date
 import javax.persistence.*
 
 @Entity
-@Table (name="order")
+@Table (name="customer_order")
 data class Order (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,4 +18,4 @@ data class Order (
     val shippingAddress: ShippingAddress,
     val date_ordered: Date,
     val complete: Boolean,
-        )
+        ): Serializable

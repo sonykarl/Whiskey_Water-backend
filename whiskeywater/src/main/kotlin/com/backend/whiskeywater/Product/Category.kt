@@ -1,5 +1,6 @@
 package com.backend.whiskeywater.Product
 
+import java.io.Serializable
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -9,4 +10,4 @@ import javax.persistence.Table
 data class Category(
     @Id
     val name: String
-)
+): Serializable

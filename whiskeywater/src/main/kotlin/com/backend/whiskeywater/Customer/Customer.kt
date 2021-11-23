@@ -1,6 +1,7 @@
 package com.backend.whiskeywater.Customer
 
-import com.backend.whiskeywater.Order.Order
+
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -12,8 +13,4 @@ data class Customer(
     val email: String,
     val phone_number: String,
 
-) {
-    @ManyToOne
-    @JoinColumn(name = "order_id", unique = true)
-    open var order: Order? = null
-}
+): Serializable
