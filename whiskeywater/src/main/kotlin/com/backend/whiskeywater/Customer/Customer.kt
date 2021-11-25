@@ -1,6 +1,7 @@
 package com.backend.whiskeywater.Customer
 
 
+import org.springframework.security.core.userdetails.UserDetails
 import java.io.Serializable
 import javax.persistence.*
 
