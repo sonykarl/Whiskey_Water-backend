@@ -1,6 +1,6 @@
 package com.backend.whiskeywater.Authentication
 
 class LoginDTO {
-    var name = ""
+    var email = ""
     var password = ""
 }

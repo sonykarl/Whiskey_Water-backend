@@ -23,5 +23,13 @@ class AuthenticationController @Autowired constructor(private val authentication
         return ResponseEntity.ok(authenticationService.RegisterCustomer(customer))
 
     }
+    @PostMapping("login")
+    fun loginCustomer(@RequestBody body:LoginDTO): ResponseEntity<Any>{
+        val customer = authenticationService.findByEmail(body.email)?:
+        return ResponseEntity.badRequest().body("user not found")
+
+        return ResponseEntity.ok(customer)
+
+    }
 
 }
