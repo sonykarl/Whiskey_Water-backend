@@ -1,7 +1,6 @@
 package com.backend.whiskeywater.Authentication
 
 import com.backend.whiskeywater.Customer.Customer
-import com.backend.whiskeywater.Customer.CustomerServices
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("api")
-class AuthenticationController @Autowired constructor(private val customerService: CustomerServices){
+class AuthenticationController @Autowired constructor(private val authenticationService: AuthenticationService){
 
     @PostMapping("register")
     fun registerCustomer(@RequestBody body: RegisterDTO): ResponseEntity<Customer>{
@@ -21,7 +20,7 @@ class AuthenticationController @Autowired constructor(private val customerServic
         customer.email = body.email
         customer.password = body.pasword
 
-        return ResponseEntity.ok(this.customerService.save(customer))
+        return ResponseEntity.ok(authenticationService.RegisterCustomer(customer))
 
     }
 
