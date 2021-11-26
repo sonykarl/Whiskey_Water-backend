@@ -17,6 +17,9 @@ class Customer{
     var lastName = ""
 
     @Column
+    var phoneNumber:Long = 0
+
+    @Column
     var email = ""
 
     @Column

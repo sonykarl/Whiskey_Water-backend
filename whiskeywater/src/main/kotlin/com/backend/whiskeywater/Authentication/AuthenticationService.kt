@@ -3,7 +3,9 @@ package com.backend.whiskeywater.Authentication
 import com.backend.whiskeywater.Customer.Customer
 import com.backend.whiskeywater.Customer.CustomerRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
+@Service
 class AuthenticationService @Autowired constructor(private val customerRepository: CustomerRepository) {
 
     fun RegisterCustomer(customer: Customer): Customer {

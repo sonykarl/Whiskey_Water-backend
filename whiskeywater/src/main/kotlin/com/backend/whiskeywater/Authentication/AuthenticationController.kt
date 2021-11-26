@@ -18,6 +18,7 @@ class AuthenticationController @Autowired constructor(private val authentication
         customer.firstName = body.firstName
         customer.lastName = body.lastName
         customer.email = body.email
+        customer.phoneNumber = body.phoneNumber
         customer.password = body.pasword
 
         return ResponseEntity.ok(authenticationService.RegisterCustomer(customer))
