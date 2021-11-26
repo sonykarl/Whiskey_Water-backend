@@ -1,18 +1,26 @@
 package com.backend.whiskeywater.Customer
 
-
-import org.springframework.security.core.userdetails.UserDetails
-import java.io.Serializable
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.persistence.*
 
 @Entity
-@Table
-data class Customer(
-    val first_name: String,
-    val last_name : String,
-    val password: String,
-    @Id
-    val email: String,
-    val phone_number: Int,
+class Customer{
 
-): Serializable
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Int = 0
+
+    @Column
+    var firstName = ""
+
+    @Column
+    var lastName = ""
+
+    @Column
+    var password = ""
+        get() = field
+        set(value) {
+            val passwordEncoder = BCryptPasswordEncoder()
+            field = passwordEncoder.encode(value)
+        }
+}
