@@ -17,6 +17,9 @@ class Customer{
     var lastName = ""
 
     @Column
+    var email = ""
+
+    @Column
     var password = ""
         get() = field
         set(value) {
