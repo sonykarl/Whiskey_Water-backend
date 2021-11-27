@@ -29,4 +29,5 @@ class Customer{
             val passwordEncoder = BCryptPasswordEncoder()
             field = passwordEncoder.encode(value)
         }
+
 }

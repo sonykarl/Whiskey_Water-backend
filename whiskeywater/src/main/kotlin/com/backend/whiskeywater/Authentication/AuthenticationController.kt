@@ -1,12 +1,15 @@
 package com.backend.whiskeywater.Authentication
 
 import com.backend.whiskeywater.Customer.Customer
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.*
 
 @RestController
 @RequestMapping("api")
@@ -26,12 +29,21 @@ class AuthenticationController @Autowired constructor(private val authentication
     }
     @PostMapping("login")
     fun loginCustomer(@RequestBody body:LoginDTO): ResponseEntity<Any>{
+
         val customer = authenticationService.findByEmail(body.email)?:
         return ResponseEntity.badRequest().body("user not found")
+
         if (!authenticationService.comparePassword(body.password)){
             return ResponseEntity.badRequest().body("invalid password")
         }
-        return ResponseEntity.ok(customer)
+
+        val issuer = customer.id.toString()
+        val jwt = Jwts.builder()
+            .setIssuer(issuer)
+            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000 ))
+            .signWith(SignatureAlgorithm.ES512, "secret").compact()
+
+        return ResponseEntity.ok(jwt)
 
     }
 
