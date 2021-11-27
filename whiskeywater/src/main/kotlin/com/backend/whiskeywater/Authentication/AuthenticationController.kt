@@ -28,7 +28,9 @@ class AuthenticationController @Autowired constructor(private val authentication
     fun loginCustomer(@RequestBody body:LoginDTO): ResponseEntity<Any>{
         val customer = authenticationService.findByEmail(body.email)?:
         return ResponseEntity.badRequest().body("user not found")
-
+        if (!authenticationService.comparePassword(body.password)){
+            return ResponseEntity.badRequest().body("invalid password")
+        }
         return ResponseEntity.ok(customer)
 
     }
