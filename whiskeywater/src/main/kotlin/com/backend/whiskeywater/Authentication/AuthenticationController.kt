@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.*
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletResponse
 
 @RestController
 @RequestMapping("api")
@@ -28,7 +30,7 @@ class AuthenticationController @Autowired constructor(private val authentication
 
     }
     @PostMapping("login")
-    fun loginCustomer(@RequestBody body:LoginDTO): ResponseEntity<Any>{
+    fun loginCustomer(@RequestBody body:LoginDTO, response: HttpServletResponse): ResponseEntity<Any>{
 
         val customer = authenticationService.findByEmail(body.email)?:
         return ResponseEntity.badRequest().body("user not found")
@@ -43,7 +45,11 @@ class AuthenticationController @Autowired constructor(private val authentication
             .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000 ))
             .signWith(SignatureAlgorithm.ES512, "secret").compact()
 
-        return ResponseEntity.ok(jwt)
+        var cookie = Cookie("jwt",jwt)
+        cookie.isHttpOnly = true
+        response.addCookie(cookie)
+
+        return ResponseEntity.ok("success")
 
     }
 
