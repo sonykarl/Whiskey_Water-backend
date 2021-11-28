@@ -2,9 +2,9 @@ package com.backend.whiskeywater.Authentication
 
 class RegisterDTO {
 
-    var firstName = ""
-    var lastName = ""
-    var phoneNumber: Long = 0
-    var email = ""
-    var pasword = ""
+    val firstName = ""
+    val lastName = ""
+    val phoneNumber: Long = 0
+    val email = ""
+    val pasword = ""
 }
