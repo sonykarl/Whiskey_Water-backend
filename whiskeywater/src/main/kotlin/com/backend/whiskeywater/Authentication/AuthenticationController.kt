@@ -49,7 +49,8 @@ class AuthenticationController @Autowired constructor(private val authentication
         cookie.isHttpOnly = true
         response.addCookie(cookie)
 
-        return ResponseEntity.ok("success")
+        return ResponseEntity.ok("successful bastard")
+
 
     }
 
