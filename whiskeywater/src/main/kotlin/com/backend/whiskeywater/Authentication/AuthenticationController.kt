@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -34,20 +35,11 @@ class AuthenticationController @Autowired constructor(private val authentication
 
         val customer = authenticationService.findByEmail(body.email)?:
         return ResponseEntity.badRequest().body("user not found")
-
         if (!authenticationService.comparePassword(body.password)){
-            return ResponseEntity.badRequest().body("invalid password")
+            return ResponseEntity.ok(ResponseEntity.ok("password successful"))
+        }else{
+            return ResponseEntity.ok("password invalid")
         }
-
-        val issuer = customer.id.toString()
-        val jwt = Jwts.builder()
-            .setIssuer(issuer)
-            .setExpiration(Date(System.currentTimeMillis() + 60 * 24 * 1000 ))
-            .signWith(SignatureAlgorithm.ES512, "secret").compact()
-
-        var cookie = Cookie("jwt",jwt)
-        cookie.isHttpOnly = true
-        response.addCookie(cookie)
 
         return ResponseEntity.ok("successful bastard")
 
