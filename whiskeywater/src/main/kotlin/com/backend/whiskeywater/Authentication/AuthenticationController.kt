@@ -35,10 +35,10 @@ class AuthenticationController @Autowired constructor(private val authentication
 
         val customer = authenticationService.findByEmail(body.email)?:
         return ResponseEntity.badRequest().body("user not found")
-        if (!authenticationService.comparePassword(body.password)){
-            return ResponseEntity.ok(ResponseEntity.ok("password successful"))
-        }else{
-            return ResponseEntity.ok("password invalid")
+        var decrypter = BCryptPasswordEncoder()
+
+        if (!authenticationService.decrypter){
+            return ResponseEntity.badRequest().body("invalid password")
         }
 
         return ResponseEntity.ok("successful bastard")
