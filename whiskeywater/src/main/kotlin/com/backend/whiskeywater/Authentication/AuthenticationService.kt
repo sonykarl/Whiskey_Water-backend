@@ -5,27 +5,32 @@ import com.backend.whiskeywater.Customer.CustomerRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.SecurityProperties
 import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import kotlin.jvm.Throws
 
 @Service
-class AuthenticationService @Autowired constructor(private val customerRepository: CustomerRepository,) {
+class AuthenticationService @Autowired constructor(val customerRepository: CustomerRepository): UserDetailsService{
 
+    private val passwordEncoder: BCryptPasswordEncoder? = null
 
-    fun RegisterCustomer(customer: Customer): Customer {
+    fun saveCustomer(customer: Customer): Customer?{
         return customerRepository.save(customer)
     }
 
-    fun findByEmail(email:String): Customer?{
-        return customerRepository.findByEmail(email)
+    @Throws(UsernameNotFoundException::class)
+    override fun loadUserByUsername(username: String): UserDetails {
+        val customer = customerRepository.findByEmail(username)
+            ?: throw UsernameNotFoundException("invalid username or password")
+
+        val user = User.withUsername(customer.email).password(customer.password).build()
+        return user
     }
 
-    fun findByPassword(password: String): String?{
-        return customerRepository.findByPassword(password)
-    }
 
-    fun comparePassword(password: String): Boolean{
-        val passwordEncoder = BCryptPasswordEncoder()
-        return passwordEncoder.matches(password,findByPassword(password))
-    }
+
+
 }
