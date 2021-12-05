@@ -6,10 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.util.*
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
@@ -17,6 +14,12 @@ import javax.servlet.http.HttpServletResponse
 @RestController
 @RequestMapping("api")
 class AuthenticationController @Autowired constructor(private val authenticationService: AuthenticationService){
+
+    @GetMapping("")
+    fun homePage(){
+        val home = "you are welcome"
+        home
+    }
 
     @PostMapping("register")
     fun registerCustomer(@RequestBody body: RegisterDTO): ResponseEntity<Customer>{
