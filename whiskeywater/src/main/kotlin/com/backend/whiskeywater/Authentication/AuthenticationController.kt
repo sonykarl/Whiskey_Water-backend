@@ -12,14 +12,8 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletResponse
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/v1")
 class AuthenticationController @Autowired constructor(private val authenticationService: AuthenticationService){
-
-    @GetMapping("")
-    fun homePage(){
-        val home = "you are welcome"
-        home
-    }
 
     @PostMapping("register")
     fun registerCustomer(@RequestBody body: RegisterDTO): ResponseEntity<Customer>{

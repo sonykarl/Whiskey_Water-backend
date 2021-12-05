@@ -1,6 +1,7 @@
 package com.backend.whiskeywater.Authentication
 
 import com.backend.whiskeywater.Customer.Customer
+import com.backend.whiskeywater.Customer.CustomerDetails
 import com.backend.whiskeywater.Customer.CustomerRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.SecurityProperties
@@ -23,15 +24,8 @@ class AuthenticationService @Autowired constructor(val customerRepository: Custo
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val customer = customerRepository.findByEmail(username)
-            ?: throw UsernameNotFoundException("invalid username or password")
-
-        return with(customer) {
-            User.withUsername(customer.email)
-                .password(customer.password)
-                .build()
-        }
-
+        val customerdetails = customerRepository.findByEmail(username)
+        return CustomerDetails(customerdetails)
     }
 
 

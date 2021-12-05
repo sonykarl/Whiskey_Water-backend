@@ -24,10 +24,10 @@ class Customer{
 
     @Column
     var password = ""
-        get() = field
-        set(value) {
-            val passwordEncoder = BCryptPasswordEncoder()
-            field = passwordEncoder.encode(value)
-        }
+//        get() = field
+//        set(value) {
+//            val passwordEncoder = BCryptPasswordEncoder()
+//            field = passwordEncoder.encode(value)
+//        }
 
 }
