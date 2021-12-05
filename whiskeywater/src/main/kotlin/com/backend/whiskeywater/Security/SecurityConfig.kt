@@ -15,14 +15,20 @@ import org.springframework.security.crypto.password.PasswordEncoder
 
 @EnableWebSecurity
 class SecurityConfig @Autowired constructor(val authenticationService: AuthenticationService, val customerRepository: CustomerRepository): WebSecurityConfigurerAdapter() {
+
     override fun configure(auth: AuthenticationManagerBuilder?) {
         super.configure(auth)
+        auth?.userDetailsService(authenticationService)?.passwordEncoder(passwordEncoder())
     }
 
     override fun configure(http: HttpSecurity?) {
         super.configure(http)
+
+
     }
+
     @Bean
-    fun encoder():PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder():PasswordEncoder = BCryptPasswordEncoder()
+
 
 }

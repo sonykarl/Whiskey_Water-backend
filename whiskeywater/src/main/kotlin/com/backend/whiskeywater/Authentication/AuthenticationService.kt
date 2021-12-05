@@ -26,9 +26,16 @@ class AuthenticationService @Autowired constructor(val customerRepository: Custo
         val customer = customerRepository.findByEmail(username)
             ?: throw UsernameNotFoundException("invalid username or password")
 
-        val user = User.withUsername(customer.email).password(customer.password).build()
-        return user
+        return with(customer) {
+            User.withUsername(customer.email)
+                .password(customer.password)
+                .build()
+        }
+
     }
+
+
+    val all: List<Customer>? = customerRepository.findAll()
 
 
 

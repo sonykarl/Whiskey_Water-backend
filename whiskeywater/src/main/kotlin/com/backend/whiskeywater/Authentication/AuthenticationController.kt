@@ -27,23 +27,13 @@ class AuthenticationController @Autowired constructor(private val authentication
         customer.phoneNumber = body.phoneNumber
         customer.password = body.pasword
 
-        return ResponseEntity.ok(authenticationService.RegisterCustomer(customer))
+        return ResponseEntity.ok(authenticationService.saveCustomer(customer))
 
     }
     @PostMapping("login")
     fun loginCustomer(@RequestBody body:LoginDTO, response: HttpServletResponse): ResponseEntity<Any>{
-
-        val customer = authenticationService.findByEmail(body.email)?:
-        return ResponseEntity.badRequest().body("user not found")
-        var decrypter = BCryptPasswordEncoder()
-
-        if (!authenticationService.decrypter){
-            return ResponseEntity.badRequest().body("invalid password")
-        }
-
-        return ResponseEntity.ok("successful bastard")
-
-
+        val customer = authenticationService.loadUserByUsername(body.email)
+        return ResponseEntity.ok(customer)
     }
 
 }
