@@ -17,7 +17,7 @@ class CustomerDetails(
     @Column
     val passWord:String,
     @Column
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING )
     val customerRole:CustomerRole,
     @Column
     val locked:Boolean,
