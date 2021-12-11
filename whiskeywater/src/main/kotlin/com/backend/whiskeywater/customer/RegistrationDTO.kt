@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 
 data class RegistrationDTO (
-    val Name:String,
+    val name:String,
     val password:String,
     val email:String,
         )
