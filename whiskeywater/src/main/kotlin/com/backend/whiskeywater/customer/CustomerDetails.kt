@@ -2,6 +2,7 @@ package com.backend.whiskeywater.customer
 
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import javax.persistence.*
 
 
@@ -9,7 +10,7 @@ import javax.persistence.*
 class CustomerDetails(
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    val id: Long,
+    val id: Long = 0,
     @Column
     val name:String,
     @Column
@@ -17,39 +18,6 @@ class CustomerDetails(
     @Column
     val passWord:String,
     @Column
-    @Enumerated(EnumType.STRING )
-    val customerRole:CustomerRole,
+    val locked:Boolean = true,
     @Column
-    val locked:Boolean,
-    @Column
-    val enabled: Boolean):UserDetails {
-
-
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPassword(): String {
-        return passWord
-    }
-
-    override fun getUsername(): String {
-        return email
-    }
-
-    override fun isAccountNonExpired(): Boolean {
-        return true
-    }
-
-    override fun isAccountNonLocked(): Boolean {
-        return !locked
-    }
-
-    override fun isCredentialsNonExpired(): Boolean {
-        return true
-    }
-
-    override fun isEnabled(): Boolean {
-        return enabled
-    }
-}
+    val enabled: Boolean = true )

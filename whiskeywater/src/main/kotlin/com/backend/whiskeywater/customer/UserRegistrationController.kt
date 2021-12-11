@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("api/v1/registration")
-class UserRegistrationController @Autowired constructor(val registrationService: RegistrationService, val validator: EmailValidator){
+class UserRegistrationController @Autowired constructor(val registrationService: RegistrationService, val validator: EmailValidator, val passwordConfig: PasswordConfig){
 
     @PostMapping
     fun register(@RequestBody body:RegistrationDTO):String{
-        val isValidEmail = validator.test(body.email)
-        if (!isValidEmail){
-            throw IllegalStateException("email not valid")
+        val customerDetails = CustomerDetails(email = body.email, passWord = passwordConfig.passwordEncoder().encode(body.password), name = body.Name)
+        registrationService.signUpUser(customerDetails)
+        if (customerDetails != null){
+            return "user saved"
+        }else{
+            return "user not saved"
         }
-        return "registered"
     }
 }

@@ -11,4 +11,8 @@ class CustomerService @Autowired constructor(private val repository: CustomerRep
     override fun loadUserByUsername(username: String?): UserDetails {
         return repository.findByEmail(username)
     }
+
+    fun signUp(customer:CustomerDetails):String{
+        return ""
+    }
 }
