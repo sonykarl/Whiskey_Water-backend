@@ -3,11 +3,15 @@ package com.backend.whiskeywater.authentication.domain.services
 import com.backend.whiskeywater.Customer.Data.models.Customer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-class CustomerPrincipal  @Autowired constructor(val customer: Customer?):UserDetails {
+class CustomerPrincipal  @Autowired constructor(private val customer: Customer?):UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        TODO("Not yet implemented")
+        val authorities = mutableListOf <GrantedAuthority>()
+        val authority = SimpleGrantedAuthority(customer?.authority)
+        authorities.add(authority)
+        return authorities
     }
 
     override fun getPassword(): String {

@@ -14,5 +14,7 @@ data class Customer (
     @Column
     val lastName: String?,
     @Column
-    val password: String
+    val password: String,
+    @Column
+    val authority: String
         )
