@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("api/v1/authenticate")
 class AuthenticationController @Autowired constructor(val passwordEncoder: BCryptPasswordEncoder,val customerDetailsService: CustomerDetailsService, val saveCustomer: SaveCustomer){
 
-    @PostMapping("register")
+    @PostMapping("/register")
     fun registerCustomer(@RequestBody body: RegisterDto): String{
         val customer = Customer(email = body.email, firstName = body.firstName,
             lastName = body.lastName, password = passwordEncoder.encode(body.password))

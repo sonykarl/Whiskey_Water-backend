@@ -17,8 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 class SecurityConfiguration @Autowired constructor(private val customerDetailsService: CustomerDetailsService): WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {
         http
-            ?.authorizeRequests()
-            ?.antMatchers("/api/v1/homepage")?.authenticated()
+            ?.httpBasic()?.disable()
+            ?.formLogin()?.disable()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
