@@ -1,4 +1,4 @@
-package com.backend.whiskeywater.authentication
+package com.backend.whiskeywater.Data.models
 
 import javax.persistence.*
 
