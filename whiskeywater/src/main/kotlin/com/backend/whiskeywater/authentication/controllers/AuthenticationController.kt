@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("api/v1/authenticate")
 class AuthenticationController @Autowired constructor(val passwordEncoder: BCryptPasswordEncoder,val customerDetailsService: CustomerDetailsService, val saveCustomer: SaveCustomer){
 
-    @PostMapping("/register")
+    @PostMapping("register")
     fun registerCustomer(@RequestBody body: RegisterDto): String{
         val customer = Customer(email = body.email, firstName = body.firstName,
             lastName = body.lastName, password = passwordEncoder.encode(body.password))
-        if (customer != null){
+        return if (customer != null){
             saveCustomer.saveCustomer(customer)
-            return "customer saved"
+            "customer saved"
         }else{
-            return "customer not saved"
+            "customer not saved"
         }
 
     }

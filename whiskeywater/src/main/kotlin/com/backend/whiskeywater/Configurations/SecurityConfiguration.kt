@@ -19,6 +19,7 @@ class SecurityConfiguration @Autowired constructor(private val customerDetailsSe
         http
             ?.httpBasic()?.disable()
             ?.formLogin()?.disable()
+            ?.csrf()?.disable()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
