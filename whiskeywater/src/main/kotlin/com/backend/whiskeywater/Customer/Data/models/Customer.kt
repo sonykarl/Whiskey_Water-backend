@@ -6,7 +6,7 @@ import javax.persistence.*
 data class Customer (
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val id: Long,
+    val id: Long = 0,
     @Column(unique = true)
     val email: String,
     @Column
