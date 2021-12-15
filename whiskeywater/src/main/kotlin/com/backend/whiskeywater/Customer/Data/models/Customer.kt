@@ -1,4 +1,4 @@
-package com.backend.whiskeywater.Data.models
+package com.backend.whiskeywater.Customer.Data.models
 
 import javax.persistence.*
 

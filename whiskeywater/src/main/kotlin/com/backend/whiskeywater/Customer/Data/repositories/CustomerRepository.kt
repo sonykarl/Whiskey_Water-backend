@@ -1,6 +1,6 @@
-package com.backend.whiskeywater.Data.repositories
+package com.backend.whiskeywater.Customer.Data.repositories
 
-import com.backend.whiskeywater.Data.models.Customer
+import com.backend.whiskeywater.Customer.Data.models.Customer
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
