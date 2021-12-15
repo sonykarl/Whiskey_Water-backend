@@ -30,7 +30,13 @@ class AuthenticationController @Autowired constructor(val passwordEncoder: BCryp
     }
 
     @PostMapping("login")
-    fun loginCustomer(@RequestBody body: LoginDTO):UserDetails{
-        return customerDetailsService.loadUserByUsername(body.email)
+    fun loginCustomer(@RequestBody body: LoginDTO):String{
+         val customerdetails = customerDetailsService.loadUserByUsername(body.email)
+        return if (passwordEncoder.matches(body.password,customerdetails.password)){
+            return "logged in"
+        }else{
+            return "details invalid"
+        }
+
     }
 }
