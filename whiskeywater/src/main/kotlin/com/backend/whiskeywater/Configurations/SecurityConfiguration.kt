@@ -1,19 +1,37 @@
 package com.backend.whiskeywater.Configurations
 
+import com.backend.whiskeywater.Customer.Data.repositories.CustomerRepository
+import com.backend.whiskeywater.authentication.domain.services.CustomerDetailsService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
-class SecurityConfiguration: WebSecurityConfigurerAdapter() {
+@EnableWebSecurity
+@Configuration
+class SecurityConfiguration @Autowired constructor(private val customerDetailsService: CustomerDetailsService): WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {
-        super.configure(http)
+        http
+            ?.authorizeRequests()
+            ?.antMatchers("/api/v1/homepage")?.authenticated()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth
-            ?.inMemoryAuthentication()
+            ?.authenticationProvider(authenticationProvider())
+    }
+
+    @Bean
+    fun authenticationProvider():DaoAuthenticationProvider{
+        val daoAuthenticationProvider = DaoAuthenticationProvider()
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder())
+        daoAuthenticationProvider.setUserDetailsService(customerDetailsService)
+        return daoAuthenticationProvider
     }
 
     @Bean

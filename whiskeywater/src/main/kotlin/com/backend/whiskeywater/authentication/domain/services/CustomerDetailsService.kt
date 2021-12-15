@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomerDetailsService @Autowired constructor(val repository:CustomerRepository): UserDetailsService {
+
     override fun loadUserByUsername(username: String?): UserDetails {
         val customer = repository.findByEmail(username)
         val customerPrincipal = CustomerPrincipal(customer)
         return customerPrincipal
     }
+
 }
