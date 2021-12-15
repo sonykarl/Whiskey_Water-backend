@@ -1,4 +1,4 @@
-package com.backend.whiskeywater.authentication.controllers
+package com.backend.whiskeywater.authentication.data
 
 data class LoginDTO(
     val email: String,

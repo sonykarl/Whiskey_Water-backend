@@ -1,11 +1,11 @@
 package com.backend.whiskeywater.authentication.controllers
 
 import com.backend.whiskeywater.Customer.Data.models.Customer
+import com.backend.whiskeywater.authentication.data.LoginDTO
 import com.backend.whiskeywater.authentication.data.RegisterDto
 import com.backend.whiskeywater.authentication.domain.logic.SaveCustomer
 import com.backend.whiskeywater.authentication.domain.services.CustomerDetailsService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
